@@ -2,6 +2,7 @@
 // Licensed under the GNU General Public License v3.0
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
@@ -63,6 +64,31 @@ namespace BarbezDotEu.String
             var hashedLines = new HashSet<string>(splitLines);
             var result = string.Join(Environment.NewLine, hashedLines);
             return result;
+        }
+
+        /// <summary>
+        /// From a given input string, retains only the first occurences of all duplicate entries.
+        /// </summary>
+        /// <param name="input">The input string to distill duplicates out of.</param>
+        /// <returns>Array of first occurences of all duplicate entries.</returns>
+        public static IEnumerable<string> KeepDuplicates(this string[] input)
+        {
+            HashSet<string> uniques = new HashSet<string>(input);
+            if (uniques.Count() == input.Length)
+            {
+                return new List<string>();
+            }
+
+            ConcurrentBag<string> results = new ConcurrentBag<string>();
+            Parallel.ForEach(uniques, x =>
+            {
+                if (input.Count(y => string.Equals(x, y, StringComparison.InvariantCultureIgnoreCase)) > 1)
+                {
+                    results.Add(x);
+                }
+            });
+
+            return results.AsEnumerable();
         }
 
         /// <summary>

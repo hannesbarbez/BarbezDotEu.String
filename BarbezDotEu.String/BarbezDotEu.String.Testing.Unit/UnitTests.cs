@@ -1,9 +1,7 @@
 ﻿// Copyright (c) Hannes Barbez. All rights reserved.
 // Licensed under the GNU General Public License v3.0
 
-using System.IO;
 using System.Linq;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace BarbezDotEu.String.Testing.Unit
@@ -15,16 +13,24 @@ namespace BarbezDotEu.String.Testing.Unit
         public void RemovingDuplicateUtf16CharactersWorks()
         {
             // Assuming a file with duplicate characters:
-            var textFilePath = "C:/Users/hanne/Desktop/headers.txt";
-            var textWithDuplicateCharacters = File.ReadAllText(textFilePath, Encoding.UTF8);
+            var textWithDuplicates = "𝓵𝓽𝓽𝓽𝓽𝓪𝓪𝓲𝓪𝓸𝓪𝓵𝓪𝓮𝓪𝓽𝓽𝓽𝓪𝓵";
+            var ExpectedTextWithoutDuplicates = "𝓵𝓽𝓪𝓲𝓸𝓮";
 
             // Retain one UTF-16 character only once
-            var textWithoutDuplicateCharacters = string.Join(null, StringHelper.EnumerateCharactersInUnicodeUtf16String(textWithDuplicateCharacters).Distinct().ToArray());
+            var textWithoutDuplicates = string.Join(null, StringHelper.EnumerateCharactersInUnicodeUtf16String(textWithDuplicates).Distinct().ToArray());
 
-            // Overwrite file with cleaned up string:
-            File.WriteAllText(textFilePath, textWithoutDuplicateCharacters, Encoding.UTF8);
+            Assert.AreEqual(ExpectedTextWithoutDuplicates, textWithoutDuplicates, false);
+        }
 
-            Assert.AreNotEqual(textWithDuplicateCharacters, textWithoutDuplicateCharacters, false);
+        [TestMethod]
+        public void ReturningDuplicatesWorks()
+        {
+            var duplicateValue = "a";
+            var nonDuplicateValue = "b";
+            var input = new string[] { duplicateValue, duplicateValue, nonDuplicateValue, "" };
+            var duplicates = StringHelper.KeepDuplicates(input);
+            Assert.IsTrue(duplicates.Contains(duplicateValue));
+            Assert.IsTrue(!duplicates.Contains(nonDuplicateValue));
         }
     }
 }
