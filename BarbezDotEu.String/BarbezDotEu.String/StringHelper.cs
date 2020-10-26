@@ -18,6 +18,73 @@ namespace BarbezDotEu.String
     public static class StringHelper
     {
         /// <summary>
+        /// Removes the ending of a given string, if matching the given ending.
+        /// </summary>
+        /// <param name="source">The string to remove the ending from, if applicable.</param>
+        /// <param name="endingToRemove">The ending to remove from the source string, if applicable.</param>
+        /// <returns>The source string without the undesired ending.</returns>
+        public static string RemoveEnding(this string source, string endingToRemove)
+        {
+            if (source.EndsWith(endingToRemove))
+            {
+                var index = source.LastIndexOf(endingToRemove);
+                source = source.Substring(0, index);
+            }
+
+            return source;
+        }
+
+        /// <summary>
+        /// Removes the endings of a given string, if matching any of the given endings.
+        /// </summary>
+        /// <param name="source">The string to remove the endings from, if applicable.</param>
+        /// <param name="endingsToRemove">The endings to remove from the source string, if applicable.</param>
+        /// <returns>The source string without the undesired endings.</returns>
+        public static string RemoveEndings(this string source, string[] endingsToRemove)
+        {
+            foreach (var ending in endingsToRemove)
+            {
+                source = source.RemoveEnding(ending);
+            }
+
+            return source;
+        }
+
+        /// <summary>
+        /// Replaces the ending of a given string, if matching the given ending to replace.
+        /// </summary>
+        /// <param name="source">The string to replace the ending from, if applicable.</param>
+        /// <param name="endingToRemove">The ending to replace of the source string, if applicable.</param>
+        /// <returns>The source string of which to replace the ending with, if applicable.</returns>
+        public static string ReplaceEnding(this string source, string endingToReplace, string endingToReplaceBy)
+        {
+            if (source.EndsWith(endingToReplace))
+            {
+                var index = source.LastIndexOf(endingToReplace);
+                source = source.Substring(0, index);
+                source = $"{source}{endingToReplaceBy}";
+            }
+
+            return source;
+        }
+
+        /// <summary>
+        /// Returns a CSV string as a HashSet containing one element per comma-delimited entry from the CSV string.
+        /// </summary>
+        /// <param name="csvString">The CSV string.</param>
+        /// <returns>HashSet containing one element per comma-delimited entry from the CSV string.</returns>
+        public static HashSet<string> AsHashSet(this string csvString)
+        {
+            if (!string.IsNullOrWhiteSpace(csvString))
+            {
+                var split = csvString.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                return new HashSet<string>(split);
+            }
+
+            return new HashSet<string>();
+        }
+
+        /// <summary>
         /// Converts <see cref="HttpContent"/> to textual string content, even if GZipped.
         /// </summary>
         /// <param name="httpContent">The <see cref="HttpContent"/> to convert.</param>
