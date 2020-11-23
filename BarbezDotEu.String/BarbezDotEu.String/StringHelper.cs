@@ -18,6 +18,57 @@ namespace BarbezDotEu.String
     public static class StringHelper
     {
         /// <summary>
+        /// From a given bag containing good and bad URIs, returns only a list of valid URIs.
+        /// </summary>
+        /// <param name="bagOfBadAndGoodUris">The bag of URIs to sift through.</param>
+        /// <returns>Only a list of valid URIs from the given bag of good and bad URIs.</returns>
+        public static HashSet<string> GetValidUris(this HashSet<string> bagOfBadAndGoodUris)
+        {
+            var verifiedUrls = new HashSet<string>();
+            foreach (var link in bagOfBadAndGoodUris)
+            {
+                var url = link;
+                if (!url.StartsWith("http"))
+                {
+                    url = $"http://{url}";
+                }
+
+                if (Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out _))
+                {
+                    verifiedUrls.Add(url);
+                }
+            }
+
+            return verifiedUrls;
+        }
+
+        /// <summary>
+        /// Encodes a given string as base64.
+        /// </summary>
+        /// <param name="source">The string to encode as base64.</param>
+        /// <param name="encoding">The expected encoding.</param>
+        /// <returns>The given string encoded as base64.</returns>
+        /// <remarks>Based on https://adrientorris.github.io/aspnet-core/manage-base64-encoding.html.</remarks>
+        public static string ToBase64String(this string source, Encoding encoding)
+        {
+            byte[] encodedBytes = encoding.GetBytes(source);
+            return Convert.ToBase64String(encodedBytes);
+        }
+
+        /// <summary>
+        /// Decodes a given base64-encoded string to a decoded string.
+        /// </summary>
+        /// <param name="base64Source">The base64-encoded string.</param>
+        /// <param name="encoding">The expected encoding.</param>
+        /// <returns>A decoded string.</returns>
+        /// <remarks>Based on https://adrientorris.github.io/aspnet-core/manage-base64-encoding.html.</remarks>
+        public static string FromBase64String(this string base64Source, Encoding encoding)
+        {
+            byte[] decodedBytes = Convert.FromBase64String(base64Source);
+            return encoding.GetString(decodedBytes);
+        }
+
+        /// <summary>
         /// Removes the ending of a given string, if matching the given ending.
         /// </summary>
         /// <param name="source">The string to remove the ending from, if applicable.</param>
@@ -213,7 +264,7 @@ namespace BarbezDotEu.String
         /// </remarks>
         public static string Right(this string value, int length)
         {
-            return value.Substring(value.Length - length);
+            return value[^length..];
         }
 
         /// <summary>
