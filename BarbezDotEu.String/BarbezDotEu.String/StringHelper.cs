@@ -12,6 +12,7 @@ using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using BarbezDotEu.Obfuscation;
 
 namespace BarbezDotEu.String
 {
@@ -24,7 +25,7 @@ namespace BarbezDotEu.String
         /// <returns>Only a list of valid URIs from the given bag of good and bad URIs.</returns>
         public static HashSet<string> GetValidUris(this HashSet<string> bagOfBadAndGoodUris)
         {
-            var verifiedUrls = new HashSet<string>();
+            var uriLookalikes = new HashSet<string>();
             foreach (var link in bagOfBadAndGoodUris)
             {
                 var url = link;
@@ -35,11 +36,13 @@ namespace BarbezDotEu.String
 
                 if (Uri.TryCreate(url, UriKind.RelativeOrAbsolute, out _))
                 {
-                    verifiedUrls.Add(url);
+                    uriLookalikes.Add(url);
                 }
             }
 
-            return verifiedUrls;
+            var uriLookalikesText = string.Join(Constants.Space, uriLookalikes.ToArray());
+            var validUrls = Regexes.Urls.Matches(uriLookalikesText).Select(x => x.Value);
+            return validUrls.ToHashSet();
         }
 
         /// <summary>
