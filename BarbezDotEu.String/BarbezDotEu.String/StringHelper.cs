@@ -195,7 +195,7 @@ namespace BarbezDotEu.String
         public static IEnumerable<string> KeepDuplicates(this string[] input)
         {
             HashSet<string> uniques = new HashSet<string>(input);
-            if (uniques.Count() == input.Length)
+            if (uniques.Count == input.Length)
             {
                 return new List<string>();
             }
@@ -344,13 +344,14 @@ namespace BarbezDotEu.String
             var parts = new List<string>();
             for (int i = 0; i < input.Length; i++)
             {
-                if (parts.Count() == 0 || (parts[parts.Count() - 1].Length == charsPerPartition))
+                // "^1" == "parts.Count - 1"
+                if (parts.Count == 0 || (parts[^1].Length == charsPerPartition))
                 {
                     parts.Add(input[i].ToString());
                 }
-                else if (parts[parts.Count() - 1].Length != charsPerPartition)
+                else if (parts[^1].Length != charsPerPartition)
                 {
-                    parts[parts.Count() - 1] += input[i].ToString();
+                    parts[^1] += input[i].ToString();
                 }
             }
             return parts;

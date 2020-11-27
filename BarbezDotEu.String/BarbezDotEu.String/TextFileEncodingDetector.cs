@@ -74,7 +74,7 @@ namespace BarbezDotEu.String
          *      - Provide straight-to-string method for byte arrays (GetStringFromByteArray)
          */
 
-        const long _defaultHeuristicSampleSize = 0x10000; //completely arbitrary - inappropriate for high numbers of files / high speed requirements
+        const long DefaultHeuristicSampleSize = 0x10000; //completely arbitrary - inappropriate for high numbers of files / high speed requirements
 
         public static Encoding DetectTextFileEncoding(string InputFilename)
         {
@@ -90,13 +90,13 @@ namespace BarbezDotEu.String
         public static Encoding DetectTextFileEncoding(FileStream InputFileStream, long HeuristicSampleSize, out bool HasBOM)
         {
             if (InputFileStream == null)
-                throw new ArgumentNullException("Must provide a valid Filestream!", "InputFileStream");
+                throw new ArgumentNullException(nameof(InputFileStream), "Must provide a valid Filestream!");
 
             if (!InputFileStream.CanRead)
-                throw new ArgumentException("Provided file stream is not readable!", "InputFileStream");
+                throw new ArgumentException("Provided file stream is not readable!", nameof(InputFileStream));
 
             if (!InputFileStream.CanSeek)
-                throw new ArgumentException("Provided file stream cannot seek!", "InputFileStream");
+                throw new ArgumentException("Provided file stream cannot seek!", nameof(InputFileStream));
             long originalPos = InputFileStream.Position;
 
             InputFileStream.Position = 0;
@@ -138,7 +138,7 @@ namespace BarbezDotEu.String
         public static Encoding DetectTextByteArrayEncoding(byte[] TextData, out bool HasBOM)
         {
             if (TextData == null)
-                throw new ArgumentNullException("Must provide a valid text data byte array!", "TextData");
+                throw new ArgumentNullException(nameof(TextData), "Must provide a valid text data byte array!");
             Encoding encodingFound = DetectBOMBytes(TextData);
             if (encodingFound != null)
             {
@@ -157,13 +157,13 @@ namespace BarbezDotEu.String
 
         public static string GetStringFromByteArray(byte[] TextData, Encoding DefaultEncoding)
         {
-            return GetStringFromByteArray(TextData, DefaultEncoding, _defaultHeuristicSampleSize);
+            return GetStringFromByteArray(TextData, DefaultEncoding, DefaultHeuristicSampleSize);
         }
 
         public static string GetStringFromByteArray(byte[] TextData, Encoding DefaultEncoding, long MaxHeuristicSampleSize)
         {
             if (TextData == null)
-                throw new ArgumentNullException("Must provide a valid text data byte array!", "TextData");
+                throw new ArgumentNullException(nameof(TextData), "Must provide a valid text data byte array!");
             Encoding encodingFound = DetectBOMBytes(TextData);
             if (encodingFound != null)
             {
@@ -191,7 +191,7 @@ namespace BarbezDotEu.String
         public static Encoding DetectBOMBytes(byte[] BOMBytes)
         {
             if (BOMBytes == null)
-                throw new ArgumentNullException("Must provide a valid BOM byte array!", "BOMBytes");
+                throw new ArgumentNullException(nameof(BOMBytes), "Must provide a valid BOM byte array!");
 
             if (BOMBytes.Length < 2)
                 return null;
@@ -217,7 +217,10 @@ namespace BarbezDotEu.String
                 return Encoding.UTF8;
 
             if (BOMBytes[0] == 0x2b && BOMBytes[1] == 0x2f && BOMBytes[2] == 0x76)
+                // obsolete but relevant here nonetheless since detecting encodings.
+#pragma warning disable SYSLIB0001 // Type or member is obsolete
                 return Encoding.UTF7;
+#pragma warning restore SYSLIB0001 // Type or member is obsolete
 
             if (BOMBytes.Length < 4)
                 return null;
