@@ -126,16 +126,21 @@ namespace BarbezDotEu.String
         /// Returns a CSV string as a HashSet containing one element per comma-delimited entry from the CSV string.
         /// </summary>
         /// <param name="csvString">The CSV string.</param>
+        /// <param name="addOneEmptyString">Set to true to include one entry containing an empty string. Default is false.</param>
         /// <returns>HashSet containing one element per comma-delimited entry from the CSV string.</returns>
-        public static HashSet<string> AsHashSet(this string csvString)
+        public static HashSet<string> AsHashSet(this string csvString, bool addOneEmptyString = false)
         {
+            var results = new HashSet<string>();
+            if (addOneEmptyString)
+                results.Add(string.Empty);
+
             if (!string.IsNullOrWhiteSpace(csvString))
             {
                 var split = csvString.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
-                return new HashSet<string>(split);
+                results.UnionWith(split);
             }
 
-            return new HashSet<string>();
+            return results;
         }
 
         /// <summary>
