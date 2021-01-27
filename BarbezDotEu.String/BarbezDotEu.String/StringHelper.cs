@@ -12,7 +12,6 @@ using System.Net.Http;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using BarbezDotEu.Obfuscation;
 
 namespace BarbezDotEu.String
 {
@@ -40,7 +39,7 @@ namespace BarbezDotEu.String
                 }
             }
 
-            var uriLookalikesText = string.Join(Constants.Space, uriLookalikes.ToArray());
+            var uriLookalikesText = string.Join(StringConstants.Space, uriLookalikes.ToArray());
             var validUrls = Regexes.Urls.Matches(uriLookalikesText).Select(x => x.Value);
             return validUrls.ToHashSet();
         }
