@@ -12,10 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarbezDotEu.String.Testing.Unit", "BarbezDotEu.String.Testing.Unit\BarbezDotEu.String.Testing.Unit.csproj", "{BC90A283-2DC6-4669-9057-5F5AD08221A6}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarbezDotEu.Obfuscation", "..\..\BarbezDotEu.Obfuscation\BarbezDotEu.Obfuscation\BarbezDotEu.Obfuscation\BarbezDotEu.Obfuscation.csproj", "{A90AA108-FF06-40FD-A1AB-992CDBC6DF2D}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BarbezDotEu.Generic", "..\..\BarbezDotEu.Generic\BarbezDotEu.Generic\BarbezDotEu.Generic\BarbezDotEu.Generic.csproj", "{0DF57CF1-4396-42EE-B400-380C8A6869F3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,14 +26,6 @@ Global
 		{BC90A283-2DC6-4669-9057-5F5AD08221A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC90A283-2DC6-4669-9057-5F5AD08221A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC90A283-2DC6-4669-9057-5F5AD08221A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A90AA108-FF06-40FD-A1AB-992CDBC6DF2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A90AA108-FF06-40FD-A1AB-992CDBC6DF2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A90AA108-FF06-40FD-A1AB-992CDBC6DF2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A90AA108-FF06-40FD-A1AB-992CDBC6DF2D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0DF57CF1-4396-42EE-B400-380C8A6869F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0DF57CF1-4396-42EE-B400-380C8A6869F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0DF57CF1-4396-42EE-B400-380C8A6869F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0DF57CF1-4396-42EE-B400-380C8A6869F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
