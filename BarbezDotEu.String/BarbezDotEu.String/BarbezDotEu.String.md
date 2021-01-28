@@ -1,6 +1,3 @@
-<a name='assembly'></a>
-# BarbezDotEu.String
-
 ## Contents
 
 - [Regexes](#T-BarbezDotEu-String-Regexes 'BarbezDotEu.String.Regexes')
@@ -49,18 +46,10 @@
 <a name='T-BarbezDotEu-String-Regexes'></a>
 ## Regexes `type`
 
-##### Namespace
-
-BarbezDotEu.String
-
-##### Summary
-
 A static class containing a smorgasbord of string constants.
 
 <a name='F-BarbezDotEu-String-Regexes-Urls'></a>
 ### Urls `constants`
-
-##### Summary
 
 Defines a regex to get all URL "lookalike"s from a text. The purpose of this regex is to find truly valid URLs, but those
 that can be used as a "vehicle" to associate their containers and domain names.
@@ -72,46 +61,30 @@ Adapted from regex sourced from https://mathiasbynens.be/demo/url-regex, replace
 <a name='T-BarbezDotEu-String-StringConstants'></a>
 ## StringConstants `type`
 
-##### Namespace
-
-BarbezDotEu.String
-
-##### Summary
-
 A static class containing a smorgasbord of string constants.
 
 <a name='F-BarbezDotEu-String-StringConstants-AcceptEncodingGzip'></a>
 ### AcceptEncodingGzip `constants`
-
-##### Summary
 
 A constant for "gzip".
 
 <a name='F-BarbezDotEu-String-StringConstants-ApplicationGzip'></a>
 ### ApplicationGzip `constants`
 
-##### Summary
-
 A constant for "application/gzip".
 
 <a name='F-BarbezDotEu-String-StringConstants-FileNameCompatibleDateTime'></a>
 ### FileNameCompatibleDateTime `constants`
-
-##### Summary
 
 A constant for "yyyyMMddHmmssfffffff".
 
 <a name='F-BarbezDotEu-String-StringConstants-Space'></a>
 ### Space `constants`
 
-##### Summary
-
 A constant for " ".
 
 <a name='F-BarbezDotEu-String-StringConstants-TLDs'></a>
 ### TLDs `constants`
-
-##### Summary
 
 A constant containing all TLDs for anno 2020, ordered by descending place in the English alphabet, in a format ideal for use as part of a regular expression.
 
@@ -122,32 +95,20 @@ IMPORTANT! When updating this URL list, make sure to sort TLDs from Z to A, so t
 <a name='F-BarbezDotEu-String-StringConstants-TextCsv'></a>
 ### TextCsv `constants`
 
-##### Summary
-
 A constant for "text/csv".
 
 <a name='F-BarbezDotEu-String-StringConstants-UTF8'></a>
 ### UTF8 `constants`
-
-##### Summary
 
 A constant for "utf-8".
 
 <a name='T-BarbezDotEu-String-StringHelper'></a>
 ## StringHelper `type`
 
-##### Namespace
-
-BarbezDotEu.String
-
-##### Summary
-
 A static class containing a smorgasbord of string-related helper and extension methods.
 
 <a name='M-BarbezDotEu-String-StringHelper-AsHashSet-System-String,System-Boolean-'></a>
 ### AsHashSet(csvString,addOneEmptyString) `method`
-
-##### Summary
 
 Returns a CSV string as a HashSet containing one element per comma-delimited entry from the CSV string.
 
@@ -165,8 +126,6 @@ HashSet containing one element per comma-delimited entry from the CSV string.
 <a name='M-BarbezDotEu-String-StringHelper-EnumerateCharactersInUnicodeUtf16String-System-String-'></a>
 ### EnumerateCharactersInUnicodeUtf16String(unicodeUtf16String) `method`
 
-##### Summary
-
 Enumerates UTF16 (Unicode) characters (represented as string since it takes two old'school 'char's to represent one Unicode char sometimes).
 
 ##### Returns
@@ -181,8 +140,6 @@ The enumerated list of UTF-16/Unicode 'characters'
 
 <a name='M-BarbezDotEu-String-StringHelper-FindAll-System-Text-RegularExpressions-Regex,System-String,System-Boolean-'></a>
 ### FindAll(needle,haystack,ignoreCase) `method`
-
-##### Summary
 
 Finds one or more textual needles in a given Regex in a textual haystack, with or without taking character casing into account.
 
@@ -200,8 +157,6 @@ Finds one or more textual needles in a given Regex in a textual haystack, with o
 
 <a name='M-BarbezDotEu-String-StringHelper-FromBase64String-System-String,System-Text-Encoding-'></a>
 ### FromBase64String(base64Source,encoding) `method`
-
-##### Summary
 
 Decodes a given base64-encoded string to a decoded string.
 
@@ -223,8 +178,6 @@ Based on https://adrientorris.github.io/aspnet-core/manage-base64-encoding.html.
 <a name='M-BarbezDotEu-String-StringHelper-GetAsTextAsync-System-Net-Http-HttpContent-'></a>
 ### GetAsTextAsync(httpContent) `method`
 
-##### Summary
-
 Converts [HttpContent](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Net.Http.HttpContent 'System.Net.Http.HttpContent') to textual string content, even if GZipped.
 
 ##### Returns
@@ -239,8 +192,6 @@ A string representation of the given [HttpContent](http://msdn.microsoft.com/que
 
 <a name='M-BarbezDotEu-String-StringHelper-GetFileName-System-String-'></a>
 ### GetFileName(fullFilePath) `method`
-
-##### Summary
 
 Returns only the file name as found inside the given full file path. The path must be of form C:\\Another\\One, C:/Example/Directory/Structure.txt won't work.
 
@@ -257,8 +208,6 @@ The file name as found inside the given full file path.
 <a name='M-BarbezDotEu-String-StringHelper-GetRawContentString-System-Byte[]-'></a>
 ### GetRawContentString(bytes) `method`
 
-##### Summary
-
 Returns a decoded content string from the given bytes.
 
 ##### Returns
@@ -273,8 +222,6 @@ Null if fail; a text if all went well.
 
 <a name='M-BarbezDotEu-String-StringHelper-GetValidUris-System-Collections-Generic-HashSet{System-String}-'></a>
 ### GetValidUris(bagOfBadAndGoodUris) `method`
-
-##### Summary
 
 From a given bag containing good and bad URIs, returns only a list of valid URIs.
 
@@ -291,8 +238,6 @@ Only a list of valid URIs from the given bag of good and bad URIs.
 <a name='M-BarbezDotEu-String-StringHelper-IsContentGZip-System-Net-Http-HttpContent-'></a>
 ### IsContentGZip(httpContent) `method`
 
-##### Summary
-
 Checks if [HttpContent](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Net.Http.HttpContent 'System.Net.Http.HttpContent') is GZipped and if so, returns true.
 
 ##### Returns
@@ -307,8 +252,6 @@ True if GZipped.
 
 <a name='M-BarbezDotEu-String-StringHelper-IsContentMediaTypeCsv-System-Net-Http-HttpContent-'></a>
 ### IsContentMediaTypeCsv(httpContent) `method`
-
-##### Summary
 
 Checks if [HttpContent](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Net.Http.HttpContent 'System.Net.Http.HttpContent') has content that is CSV and if so, returns true.
 
@@ -325,8 +268,6 @@ True if the content is CSV.
 <a name='M-BarbezDotEu-String-StringHelper-IsContentUtf8-System-Net-Http-HttpContent-'></a>
 ### IsContentUtf8(httpContent) `method`
 
-##### Summary
-
 Checks if [HttpContent](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Net.Http.HttpContent 'System.Net.Http.HttpContent') is UTF8 and if so, returns true.
 
 ##### Returns
@@ -342,8 +283,6 @@ True if the content is UTF8.
 <a name='M-BarbezDotEu-String-StringHelper-KeepDuplicates-System-String[]-'></a>
 ### KeepDuplicates(input) `method`
 
-##### Summary
-
 From a given input string, retains only the first occurences of all duplicate entries.
 
 ##### Returns
@@ -358,8 +297,6 @@ Array of first occurences of all duplicate entries.
 
 <a name='M-BarbezDotEu-String-StringHelper-Partition-System-String,System-Int32-'></a>
 ### Partition(input,charsPerPartition) `method`
-
-##### Summary
 
 Splits a given string up into even blocks (except for the last item in the list when the input string was not long enough).
 
@@ -377,8 +314,6 @@ A [List\`1](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US
 <a name='M-BarbezDotEu-String-StringHelper-RemoveDuplicateLines-System-String-'></a>
 ### RemoveDuplicateLines(input) `method`
 
-##### Summary
-
 Removes duplicate lines from a given string containing newlines.
 
 ##### Returns
@@ -393,8 +328,6 @@ The inputted string without the duplicate lines.
 
 <a name='M-BarbezDotEu-String-StringHelper-RemoveEnding-System-String,System-String-'></a>
 ### RemoveEnding(source,endingToRemove) `method`
-
-##### Summary
 
 Removes the ending of a given string, if matching the given ending.
 
@@ -412,8 +345,6 @@ The source string without the undesired ending.
 <a name='M-BarbezDotEu-String-StringHelper-RemoveEndings-System-String,System-String[]-'></a>
 ### RemoveEndings(source,endingsToRemove) `method`
 
-##### Summary
-
 Removes the endings of a given string, if matching any of the given endings.
 
 ##### Returns
@@ -429,8 +360,6 @@ The source string without the undesired endings.
 
 <a name='M-BarbezDotEu-String-StringHelper-ReplaceEnding-System-String,System-String,System-String-'></a>
 ### ReplaceEnding(source,endingToReplace,endingToReplaceBy) `method`
-
-##### Summary
 
 Replaces the ending of a given string, if matching the given ending to replace.
 
@@ -449,8 +378,6 @@ The source string of which to replace the ending with, if applicable.
 <a name='M-BarbezDotEu-String-StringHelper-Right-System-String,System-Int32-'></a>
 ### Right() `method`
 
-##### Summary
-
 Gets a substring of a specified number of characters starting from the right.
 
 ##### Parameters
@@ -463,8 +390,6 @@ Source: https://www.dotnetperls.com/right.
 
 <a name='M-BarbezDotEu-String-StringHelper-ToBase64String-System-String,System-Text-Encoding-'></a>
 ### ToBase64String(source,encoding) `method`
-
-##### Summary
 
 Encodes a given string as base64.
 
@@ -486,8 +411,6 @@ Based on https://adrientorris.github.io/aspnet-core/manage-base64-encoding.html.
 <a name='M-BarbezDotEu-String-StringHelper-ToFileNameString-System-DateTime,System-String-'></a>
 ### ToFileNameString(dateTime,fileNameCompatibleDateTime) `method`
 
-##### Summary
-
 Returns a fine-grained, probably unique, string representation of a given date time.
 
 ##### Returns
@@ -503,8 +426,6 @@ The string representation of the given date and time.
 
 <a name='M-BarbezDotEu-String-StringHelper-TruncateUniqueString-System-String-'></a>
 ### TruncateUniqueString(value) `method`
-
-##### Summary
 
 Truncates a string to the rightmost X characters so that the most
 valuable information is retained (e.g. by truncating FQDNs
@@ -530,18 +451,15 @@ a maximum column length of 450 characters in MSSQL/EF Core environments as ours.
 <a name='T-BarbezDotEu-String-TextFileEncodingDetector'></a>
 ## TextFileEncodingDetector `type`
 
-##### Namespace
-
-BarbezDotEu.String
-
-##### Summary
-
 Simple class to handle text file encoding woes (in a primarily English-speaking tech world).
+
+##### Remarks
+
+Copyright Tao Klerks, 2010-2012, tao @klerks.biz
+Licensed under the modified BSD license (see inside class).
 
 <a name='M-BarbezDotEu-String-TextFileEncodingDetector-DetectBOMBytes-System-Byte[]-'></a>
 ### DetectBOMBytes(BOMBytes) `method`
-
-##### Summary
 
 Detects BOM bytes.
 
@@ -558,8 +476,6 @@ The [Encoding](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN
 <a name='M-BarbezDotEu-String-TextFileEncodingDetector-DetectTextByteArrayEncoding-System-Byte[]-'></a>
 ### DetectTextByteArrayEncoding(TextData) `method`
 
-##### Summary
-
 Detects file encoding of binary text data.
 
 ##### Returns
@@ -574,8 +490,6 @@ The text file's [Encoding](http://msdn.microsoft.com/query/dev14.query?appId=Dev
 
 <a name='M-BarbezDotEu-String-TextFileEncodingDetector-DetectTextByteArrayEncoding-System-Byte[],System-Boolean@-'></a>
 ### DetectTextByteArrayEncoding(TextData,HasBOM) `method`
-
-##### Summary
 
 Detects file encoding of binary text data.
 
@@ -593,8 +507,6 @@ The text file's [Encoding](http://msdn.microsoft.com/query/dev14.query?appId=Dev
 <a name='M-BarbezDotEu-String-TextFileEncodingDetector-DetectTextFileEncoding-System-String-'></a>
 ### DetectTextFileEncoding(InputFilename) `method`
 
-##### Summary
-
 Detects file encoding of a text file.
 
 ##### Returns
@@ -610,8 +522,6 @@ The text file's [Encoding](http://msdn.microsoft.com/query/dev14.query?appId=Dev
 <a name='M-BarbezDotEu-String-TextFileEncodingDetector-DetectTextFileEncoding-System-IO-FileStream-'></a>
 ### DetectTextFileEncoding(InputFileStream) `method`
 
-##### Summary
-
 Detects file encoding of a text file.
 
 ##### Returns
@@ -626,8 +536,6 @@ The text file's [Encoding](http://msdn.microsoft.com/query/dev14.query?appId=Dev
 
 <a name='M-BarbezDotEu-String-TextFileEncodingDetector-DetectTextFileEncoding-System-IO-FileStream,System-Int64,System-Boolean@-'></a>
 ### DetectTextFileEncoding(InputFileStream,HeuristicSampleSize,HasBOM) `method`
-
-##### Summary
 
 Detects file encoding of a text file.
 
@@ -646,8 +554,6 @@ The text file's [Encoding](http://msdn.microsoft.com/query/dev14.query?appId=Dev
 <a name='M-BarbezDotEu-String-TextFileEncodingDetector-DetectUnicodeInByteSampleByHeuristics-System-Byte[]-'></a>
 ### DetectUnicodeInByteSampleByHeuristics(SampleBytes) `method`
 
-##### Summary
-
 Detects Unicode in sample bytes by heuristics.
 
 ##### Returns
@@ -662,8 +568,6 @@ The [Encoding](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN
 
 <a name='M-BarbezDotEu-String-TextFileEncodingDetector-GetStringFromByteArray-System-Byte[],System-Text-Encoding-'></a>
 ### GetStringFromByteArray(TextData,DefaultEncoding) `method`
-
-##### Summary
 
 Gets a string from a byte array.
 
@@ -680,8 +584,6 @@ The string as retrieved from the byte array.
 
 <a name='M-BarbezDotEu-String-TextFileEncodingDetector-GetStringFromByteArray-System-Byte[],System-Text-Encoding,System-Int64-'></a>
 ### GetStringFromByteArray(TextData,DefaultEncoding,MaxHeuristicSampleSize) `method`
-
-##### Summary
 
 Gets a string from a byte array.
 
