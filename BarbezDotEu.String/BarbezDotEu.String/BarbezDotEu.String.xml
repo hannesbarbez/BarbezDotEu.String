@@ -4,6 +4,11 @@
         <name>BarbezDotEu.String</name>
     </assembly>
     <members>
+        <member name="T:BarbezDotEu.String.Regexes">
+            <summary>
+            A static class containing a smorgasbord of string constants.
+            </summary>
+        </member>
         <member name="F:BarbezDotEu.String.Regexes.Urls">
             <summary>
             Defines a regex to get all URL "lookalike"s from a text. The purpose of this regex is to find truly valid URLs, but those
@@ -12,6 +17,54 @@
             <remarks>
             Adapted from regex sourced from https://mathiasbynens.be/demo/url-regex, replaced TLDs with those from https://github.com/publicsuffix/list. Alternative: https://github.com/flipbit/tld.
             </remarks>
+        </member>
+        <member name="T:BarbezDotEu.String.StringConstants">
+            <summary>
+            A static class containing a smorgasbord of string constants.
+            </summary>
+        </member>
+        <member name="F:BarbezDotEu.String.StringConstants.TLDs">
+            <summary>
+            A constant containing all TLDs for anno 2020, ordered by descending place in the English alphabet, in a format ideal for use as part of a regular expression.
+            </summary>
+            <remarks>
+            IMPORTANT! When updating this URL list, make sure to sort TLDs from Z to A, so that COM comes before CO, and so on!
+            </remarks>
+        </member>
+        <member name="F:BarbezDotEu.String.StringConstants.UTF8">
+            <summary>
+            A constant for "utf-8".
+            </summary>
+        </member>
+        <member name="F:BarbezDotEu.String.StringConstants.TextCsv">
+            <summary>
+            A constant for "text/csv".
+            </summary>
+        </member>
+        <member name="F:BarbezDotEu.String.StringConstants.ApplicationGzip">
+            <summary>
+            A constant for "application/gzip".
+            </summary>
+        </member>
+        <member name="F:BarbezDotEu.String.StringConstants.FileNameCompatibleDateTime">
+            <summary>
+            A constant for "yyyyMMddHmmssfffffff".
+            </summary>
+        </member>
+        <member name="F:BarbezDotEu.String.StringConstants.Space">
+            <summary>
+            A constant for " ".
+            </summary>
+        </member>
+        <member name="F:BarbezDotEu.String.StringConstants.AcceptEncodingGzip">
+            <summary>
+            A constant for "gzip".
+            </summary>
+        </member>
+        <member name="T:BarbezDotEu.String.StringHelper">
+            <summary>
+            A static class containing a smorgasbord of string-related helper and extension methods.
+            </summary>
         </member>
         <member name="M:BarbezDotEu.String.StringHelper.GetValidUris(System.Collections.Generic.HashSet{System.String})">
             <summary>
@@ -59,7 +112,8 @@
             Replaces the ending of a given string, if matching the given ending to replace.
             </summary>
             <param name="source">The string to replace the ending from, if applicable.</param>
-            <param name="endingToRemove">The ending to replace of the source string, if applicable.</param>
+            <param name="endingToReplace">The ending to replace of the source string, if applicable.</param>
+            <param name="endingToReplaceBy">The ending to replace the ending of the source string by.</param>
             <returns>The source string of which to replace the ending with, if applicable.</returns>
         </member>
         <member name="M:BarbezDotEu.String.StringHelper.AsHashSet(System.String,System.Boolean)">
@@ -98,6 +152,15 @@
             <param name="fullFilePath">The full file path.</param>
             <returns>The file name as found inside the given full file path.</returns>
         </member>
+        <member name="M:BarbezDotEu.String.StringHelper.FindAll(System.Text.RegularExpressions.Regex,System.String,System.Boolean)">
+            <summary>
+            Finds one or more textual needles in a given Regex in a textual haystack, with or without taking character casing into account.
+            </summary>
+            <param name="needle">The (different) piece(s) of text to find.</param>
+            <param name="haystack">The text to find the needle in.</param>
+            <param name="ignoreCase">Set to true to turn case-sensitivity off.</param>
+            <returns></returns>
+        </member>
         <member name="M:BarbezDotEu.String.StringHelper.TruncateUniqueString(System.String)">
             <summary>
             Truncates a string to the rightmost X characters so that the most
@@ -126,6 +189,7 @@
             Returns a fine-grained, probably unique, string representation of a given date time.
             </summary>
             <param name="dateTime">The <see cref="T:System.DateTime"/> to convert to string.</param>
+            <param name="fileNameCompatibleDateTime">A standard or custom date and time format string.</param>
             <returns>The string representation of the given date and time.</returns>
         </member>
         <member name="M:BarbezDotEu.String.StringHelper.GetRawContentString(System.Byte[])">
@@ -161,7 +225,7 @@
             Splits a given string up into even blocks (except for the last item in the list when the input string was not long enough).
             </summary>
             <param name="input">The string to split up.</param>
-            <param name="parts">The number of characters to split up per item (partition) in the resulting list.</param>
+            <param name="charsPerPartition">The number of characters to split up per item (partition) in the resulting list.</param>
             <returns>A <see cref="T:System.Collections.Generic.List`1"/> containing the split up partitions.</returns>
         </member>
         <member name="M:BarbezDotEu.String.StringHelper.EnumerateCharactersInUnicodeUtf16String(System.String)">
@@ -170,6 +234,80 @@
             </summary>
             <param name="unicodeUtf16String">The Unicode (UTF-16) string to enumerate.</param>
             <returns>The enumerated list of UTF-16/Unicode 'characters'</returns>
+        </member>
+        <member name="T:BarbezDotEu.String.TextFileEncodingDetector">
+            <summary>
+            Simple class to handle text file encoding woes (in a primarily English-speaking tech world).
+            </summary>
+        </member>
+        <member name="M:BarbezDotEu.String.TextFileEncodingDetector.DetectTextFileEncoding(System.String)">
+            <summary>
+            Detects file encoding of a text file.
+            </summary>
+            <param name="InputFilename">The text file to detect encoding for.</param>
+            <returns>The text file's <see cref="T:System.Text.Encoding"/>.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.TextFileEncodingDetector.DetectTextFileEncoding(System.IO.FileStream)">
+            <summary>
+            Detects file encoding of a text file.
+            </summary>
+            <param name="InputFileStream">The text file to detect encoding for.</param>
+            <returns>The text file's <see cref="T:System.Text.Encoding"/>.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.TextFileEncodingDetector.DetectTextFileEncoding(System.IO.FileStream,System.Int64,System.Boolean@)">
+            <summary>
+            Detects file encoding of a text file.
+            </summary>
+            <param name="InputFileStream">The text file to detect encoding for.</param>
+            <param name="HeuristicSampleSize">The sample size.</param>
+            <param name="HasBOM">Set to true if the file has BOM.</param>
+            <returns>The text file's <see cref="T:System.Text.Encoding"/>.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.TextFileEncodingDetector.DetectTextByteArrayEncoding(System.Byte[])">
+            <summary>
+            Detects file encoding of binary text data.
+            </summary>
+            <param name="TextData">The binary text data to detect encoding for.</param>
+            <returns>The text file's <see cref="T:System.Text.Encoding"/>.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.TextFileEncodingDetector.DetectTextByteArrayEncoding(System.Byte[],System.Boolean@)">
+            <summary>
+            Detects file encoding of binary text data.
+            </summary>
+            <param name="TextData">The binary text data to detect encoding for.</param>
+            <param name="HasBOM">Set to true if the file has BOM.</param>
+            <returns>The text file's <see cref="T:System.Text.Encoding"/>.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.TextFileEncodingDetector.GetStringFromByteArray(System.Byte[],System.Text.Encoding)">
+            <summary>
+            Gets a string from a byte array.
+            </summary>
+            <param name="TextData">The binary text data to detect encoding for.</param>
+            <param name="DefaultEncoding">The encoding using which to interpret the byte array.</param>
+            <returns>The string as retrieved from the byte array.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.TextFileEncodingDetector.GetStringFromByteArray(System.Byte[],System.Text.Encoding,System.Int64)">
+            <summary>
+            Gets a string from a byte array.
+            </summary>
+            <param name="TextData">The binary text data to detect encoding for.</param>
+            <param name="DefaultEncoding">The encoding using which to interpret the byte array.</param>
+            <param name="MaxHeuristicSampleSize">The maximum sample size.</param>
+            <returns>The string as retrieved from the byte array.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.TextFileEncodingDetector.DetectBOMBytes(System.Byte[])">
+            <summary>
+            Detects BOM bytes.
+            </summary>
+            <param name="BOMBytes">The BOM bytes array.</param>
+            <returns>The <see cref="T:System.Text.Encoding"/>.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.TextFileEncodingDetector.DetectUnicodeInByteSampleByHeuristics(System.Byte[])">
+            <summary>
+            Detects Unicode in sample bytes by heuristics.
+            </summary>
+            <param name="SampleBytes">The sample byte array.</param>
+            <returns>The <see cref="T:System.Text.Encoding"/>.</returns>
         </member>
     </members>
 </doc>
