@@ -8,6 +8,10 @@ namespace BarbezDotEu.String
     /// <summary>
     /// Simple class to handle text file encoding woes (in a primarily English-speaking tech world).
     /// </summary>
+    /// <remarks>
+    /// Copyright Tao Klerks, 2010-2012, tao @klerks.biz
+    /// Licensed under the modified BSD license (see inside class).
+    /// </remarks>
     public static class TextFileEncodingDetector
     {
         /*
