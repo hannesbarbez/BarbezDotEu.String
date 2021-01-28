@@ -1,0 +1,175 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>BarbezDotEu.String</name>
+    </assembly>
+    <members>
+        <member name="F:BarbezDotEu.String.Regexes.Urls">
+            <summary>
+            Defines a regex to get all URL "lookalike"s from a text. The purpose of this regex is to find truly valid URLs, but those
+            that can be used as a "vehicle" to associate their containers and domain names.
+            </summary>
+            <remarks>
+            Adapted from regex sourced from https://mathiasbynens.be/demo/url-regex, replaced TLDs with those from https://github.com/publicsuffix/list. Alternative: https://github.com/flipbit/tld.
+            </remarks>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.GetValidUris(System.Collections.Generic.HashSet{System.String})">
+            <summary>
+            From a given bag containing good and bad URIs, returns only a list of valid URIs.
+            </summary>
+            <param name="bagOfBadAndGoodUris">The bag of URIs to sift through.</param>
+            <returns>Only a list of valid URIs from the given bag of good and bad URIs.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.ToBase64String(System.String,System.Text.Encoding)">
+            <summary>
+            Encodes a given string as base64.
+            </summary>
+            <param name="source">The string to encode as base64.</param>
+            <param name="encoding">The expected encoding.</param>
+            <returns>The given string encoded as base64.</returns>
+            <remarks>Based on https://adrientorris.github.io/aspnet-core/manage-base64-encoding.html.</remarks>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.FromBase64String(System.String,System.Text.Encoding)">
+            <summary>
+            Decodes a given base64-encoded string to a decoded string.
+            </summary>
+            <param name="base64Source">The base64-encoded string.</param>
+            <param name="encoding">The expected encoding.</param>
+            <returns>A decoded string.</returns>
+            <remarks>Based on https://adrientorris.github.io/aspnet-core/manage-base64-encoding.html.</remarks>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.RemoveEnding(System.String,System.String)">
+            <summary>
+            Removes the ending of a given string, if matching the given ending.
+            </summary>
+            <param name="source">The string to remove the ending from, if applicable.</param>
+            <param name="endingToRemove">The ending to remove from the source string, if applicable.</param>
+            <returns>The source string without the undesired ending.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.RemoveEndings(System.String,System.String[])">
+            <summary>
+            Removes the endings of a given string, if matching any of the given endings.
+            </summary>
+            <param name="source">The string to remove the endings from, if applicable.</param>
+            <param name="endingsToRemove">The endings to remove from the source string, if applicable.</param>
+            <returns>The source string without the undesired endings.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.ReplaceEnding(System.String,System.String,System.String)">
+            <summary>
+            Replaces the ending of a given string, if matching the given ending to replace.
+            </summary>
+            <param name="source">The string to replace the ending from, if applicable.</param>
+            <param name="endingToRemove">The ending to replace of the source string, if applicable.</param>
+            <returns>The source string of which to replace the ending with, if applicable.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.AsHashSet(System.String,System.Boolean)">
+            <summary>
+            Returns a CSV string as a HashSet containing one element per comma-delimited entry from the CSV string.
+            </summary>
+            <param name="csvString">The CSV string.</param>
+            <param name="addOneEmptyString">Set to true to include one entry containing an empty string. Default is false.</param>
+            <returns>HashSet containing one element per comma-delimited entry from the CSV string.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.GetAsTextAsync(System.Net.Http.HttpContent)">
+            <summary>
+            Converts <see cref="T:System.Net.Http.HttpContent"/> to textual string content, even if GZipped.
+            </summary>
+            <param name="httpContent">The <see cref="T:System.Net.Http.HttpContent"/> to convert.</param>
+            <returns>A string representation of the given <see cref="T:System.Net.Http.HttpContent"/>.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.RemoveDuplicateLines(System.String)">
+            <summary>
+            Removes duplicate lines from a given string containing newlines.
+            </summary>
+            <param name="input">A newlines-containing input string to remove duplicate lines from.</param>
+            <returns>The inputted string without the duplicate lines.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.KeepDuplicates(System.String[])">
+            <summary>
+            From a given input string, retains only the first occurences of all duplicate entries.
+            </summary>
+            <param name="input">The input string to distill duplicates out of.</param>
+            <returns>Array of first occurences of all duplicate entries.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.GetFileName(System.String)">
+            <summary>
+            Returns only the file name as found inside the given full file path. The path must be of form C:\\Another\\One, C:/Example/Directory/Structure.txt won't work.
+            </summary>
+            <param name="fullFilePath">The full file path.</param>
+            <returns>The file name as found inside the given full file path.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.TruncateUniqueString(System.String)">
+            <summary>
+            Truncates a string to the rightmost X characters so that the most
+            valuable information is retained (e.g. by truncating FQDNs
+            and emailaddresses this way, we retain the top-level domains, i.e.
+            the most valuable information essentially, is retained by truncating
+            from the right.
+            </summary>
+            <remarks>
+            This method is intended to be used on properties that are defined as unique, and thus have
+            a maximum column length of 450 characters in MSSQL/EF Core environments as ours.
+            </remarks>
+            <param name="value">The string to truncate.</param>
+            <returns>The truncated string.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.Right(System.String,System.Int32)">
+            <summary>
+            Gets a substring of a specified number of characters starting from the right.
+            </summary>
+            <remarks>
+            Source: https://www.dotnetperls.com/right.
+            </remarks>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.ToFileNameString(System.DateTime,System.String)">
+            <summary>
+            Returns a fine-grained, probably unique, string representation of a given date time.
+            </summary>
+            <param name="dateTime">The <see cref="T:System.DateTime"/> to convert to string.</param>
+            <returns>The string representation of the given date and time.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.GetRawContentString(System.Byte[])">
+            <summary>
+            Returns a decoded content string from the given bytes.
+            </summary>
+            <param name="bytes">The bytes to convert to a string.</param>
+            <returns>Null if fail; a text if all went well.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.IsContentMediaTypeCsv(System.Net.Http.HttpContent)">
+            <summary>
+            Checks if <see cref="T:System.Net.Http.HttpContent"/> has content that is CSV and if so, returns true.
+            </summary>
+            <param name="httpContent">The <see cref="T:System.Net.Http.HttpContent"/> to check.</param>
+            <returns>True if the content is CSV.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.IsContentUtf8(System.Net.Http.HttpContent)">
+            <summary>
+            Checks if <see cref="T:System.Net.Http.HttpContent"/> is UTF8 and if so, returns true.
+            </summary>
+            <param name="httpContent">The <see cref="T:System.Net.Http.HttpContent"/> to check.</param>
+            <returns>True if the content is UTF8.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.IsContentGZip(System.Net.Http.HttpContent)">
+            <summary>
+            Checks if <see cref="T:System.Net.Http.HttpContent"/> is GZipped and if so, returns true.
+            </summary>
+            <param name="httpContent">The <see cref="T:System.Net.Http.HttpContent"/> to check.</param>
+            <returns>True if GZipped.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.Partition(System.String,System.Int32)">
+            <summary>
+            Splits a given string up into even blocks (except for the last item in the list when the input string was not long enough).
+            </summary>
+            <param name="input">The string to split up.</param>
+            <param name="parts">The number of characters to split up per item (partition) in the resulting list.</param>
+            <returns>A <see cref="T:System.Collections.Generic.List`1"/> containing the split up partitions.</returns>
+        </member>
+        <member name="M:BarbezDotEu.String.StringHelper.EnumerateCharactersInUnicodeUtf16String(System.String)">
+            <summary>
+            Enumerates UTF16 (Unicode) characters (represented as string since it takes two old'school 'char's to represent one Unicode char sometimes).
+            </summary>
+            <param name="unicodeUtf16String">The Unicode (UTF-16) string to enumerate.</param>
+            <returns>The enumerated list of UTF-16/Unicode 'characters'</returns>
+        </member>
+    </members>
+</doc>
