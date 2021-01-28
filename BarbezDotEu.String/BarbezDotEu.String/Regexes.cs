@@ -5,6 +5,9 @@ using System.Text.RegularExpressions;
 
 namespace BarbezDotEu.String
 {
+    /// <summary>
+    /// A static class containing a smorgasbord of string constants.
+    /// </summary>
     public static class Regexes
     {
         /// <summary>
