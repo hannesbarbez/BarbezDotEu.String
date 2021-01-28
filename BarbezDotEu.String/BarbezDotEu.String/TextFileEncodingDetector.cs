@@ -1,13 +1,13 @@
-﻿// Copyright (c) Hannes Barbez. All rights reserved.
-// Licensed under the GNU General Public License v3.0
-
-using System;
+﻿using System;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
 
 namespace BarbezDotEu.String
 {
+    /// <summary>
+    /// Simple class to handle text file encoding woes (in a primarily English-speaking tech world).
+    /// </summary>
     public static class TextFileEncodingDetector
     {
         /*
@@ -76,17 +76,34 @@ namespace BarbezDotEu.String
 
         const long DefaultHeuristicSampleSize = 0x10000; //completely arbitrary - inappropriate for high numbers of files / high speed requirements
 
+        /// <summary>
+        /// Detects file encoding of a text file.
+        /// </summary>
+        /// <param name="InputFilename">The text file to detect encoding for.</param>
+        /// <returns>The text file's <see cref="Encoding"/>.</returns>
         public static Encoding DetectTextFileEncoding(string InputFilename)
         {
             using FileStream textfileStream = File.OpenRead(InputFilename);
             return DetectTextFileEncoding(textfileStream);
         }
 
+        /// <summary>
+        /// Detects file encoding of a text file.
+        /// </summary>
+        /// <param name="InputFileStream">The text file to detect encoding for.</param>
+        /// <returns>The text file's <see cref="Encoding"/>.</returns>
         public static Encoding DetectTextFileEncoding(FileStream InputFileStream)
         {
             return DetectTextFileEncoding(InputFileStream);
         }
 
+        /// <summary>
+        /// Detects file encoding of a text file.
+        /// </summary>
+        /// <param name="InputFileStream">The text file to detect encoding for.</param>
+        /// <param name="HeuristicSampleSize">The sample size.</param>
+        /// <param name="HasBOM">Set to true if the file has BOM.</param>
+        /// <returns>The text file's <see cref="Encoding"/>.</returns>
         public static Encoding DetectTextFileEncoding(FileStream InputFileStream, long HeuristicSampleSize, out bool HasBOM)
         {
             if (InputFileStream == null)
@@ -130,11 +147,22 @@ namespace BarbezDotEu.String
             return encodingFound;
         }
 
+        /// <summary>
+        /// Detects file encoding of binary text data.
+        /// </summary>
+        /// <param name="TextData">The binary text data to detect encoding for.</param>
+        /// <returns>The text file's <see cref="Encoding"/>.</returns>
         public static Encoding DetectTextByteArrayEncoding(byte[] TextData)
         {
             return DetectTextByteArrayEncoding(TextData);
         }
 
+        /// <summary>
+        /// Detects file encoding of binary text data.
+        /// </summary>
+        /// <param name="TextData">The binary text data to detect encoding for.</param>
+        /// <param name="HasBOM">Set to true if the file has BOM.</param>
+        /// <returns>The text file's <see cref="Encoding"/>.</returns>
         public static Encoding DetectTextByteArrayEncoding(byte[] TextData, out bool HasBOM)
         {
             if (TextData == null)
@@ -155,11 +183,24 @@ namespace BarbezDotEu.String
             }
         }
 
+        /// <summary>
+        /// Gets a string from a byte array.
+        /// </summary>
+        /// <param name="TextData">The binary text data to detect encoding for.</param>
+        /// <param name="DefaultEncoding">The encoding using which to interpret the byte array.</param>
+        /// <returns>The string as retrieved from the byte array.</returns>
         public static string GetStringFromByteArray(byte[] TextData, Encoding DefaultEncoding)
         {
             return GetStringFromByteArray(TextData, DefaultEncoding, DefaultHeuristicSampleSize);
         }
 
+        /// <summary>
+        /// Gets a string from a byte array.
+        /// </summary>
+        /// <param name="TextData">The binary text data to detect encoding for.</param>
+        /// <param name="DefaultEncoding">The encoding using which to interpret the byte array.</param>
+        /// <param name="MaxHeuristicSampleSize">The maximum sample size.</param>
+        /// <returns>The string as retrieved from the byte array.</returns>
         public static string GetStringFromByteArray(byte[] TextData, Encoding DefaultEncoding, long MaxHeuristicSampleSize)
         {
             if (TextData == null)
@@ -187,7 +228,11 @@ namespace BarbezDotEu.String
             }
         }
 
-
+        /// <summary>
+        /// Detects BOM bytes.
+        /// </summary>
+        /// <param name="BOMBytes">The BOM bytes array.</param>
+        /// <returns>The <see cref="Encoding"/>.</returns>
         public static Encoding DetectBOMBytes(byte[] BOMBytes)
         {
             if (BOMBytes == null)
@@ -234,6 +279,11 @@ namespace BarbezDotEu.String
             return null;
         }
 
+        /// <summary>
+        /// Detects Unicode in sample bytes by heuristics.
+        /// </summary>
+        /// <param name="SampleBytes">The sample byte array.</param>
+        /// <returns>The <see cref="Encoding"/>.</returns>
         public static Encoding DetectUnicodeInByteSampleByHeuristics(byte[] SampleBytes)
         {
             long oddBinaryNullsInSample = 0;

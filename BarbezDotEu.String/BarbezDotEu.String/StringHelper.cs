@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 
 namespace BarbezDotEu.String
 {
+    /// <summary>
+    /// A static class containing a smorgasbord of string-related helper and extension methods.
+    /// </summary>
     public static class StringHelper
     {
         /// <summary>
@@ -107,7 +110,8 @@ namespace BarbezDotEu.String
         /// Replaces the ending of a given string, if matching the given ending to replace.
         /// </summary>
         /// <param name="source">The string to replace the ending from, if applicable.</param>
-        /// <param name="endingToRemove">The ending to replace of the source string, if applicable.</param>
+        /// <param name="endingToReplace">The ending to replace of the source string, if applicable.</param>
+        /// <param name="endingToReplaceBy">The ending to replace the ending of the source string by.</param>
         /// <returns>The source string of which to replace the ending with, if applicable.</returns>
         public static string ReplaceEnding(this string source, string endingToReplace, string endingToReplaceBy)
         {
@@ -227,6 +231,13 @@ namespace BarbezDotEu.String
             return result;
         }
 
+        /// <summary>
+        /// Finds one or more textual needles in a given Regex in a textual haystack, with or without taking character casing into account.
+        /// </summary>
+        /// <param name="needle">The (different) piece(s) of text to find.</param>
+        /// <param name="haystack">The text to find the needle in.</param>
+        /// <param name="ignoreCase">Set to true to turn case-sensitivity off.</param>
+        /// <returns></returns>
         public static HashSet<string> FindAll(Regex needle, string haystack, bool ignoreCase)
         {
             if (ignoreCase)
@@ -278,6 +289,7 @@ namespace BarbezDotEu.String
         /// Returns a fine-grained, probably unique, string representation of a given date time.
         /// </summary>
         /// <param name="dateTime">The <see cref="DateTime"/> to convert to string.</param>
+        /// <param name="fileNameCompatibleDateTime">A standard or custom date and time format string.</param>
         /// <returns>The string representation of the given date and time.</returns>
         public static string ToFileNameString(this DateTime dateTime, string fileNameCompatibleDateTime)
         {
@@ -341,7 +353,7 @@ namespace BarbezDotEu.String
         /// Splits a given string up into even blocks (except for the last item in the list when the input string was not long enough).
         /// </summary>
         /// <param name="input">The string to split up.</param>
-        /// <param name="parts">The number of characters to split up per item (partition) in the resulting list.</param>
+        /// <param name="charsPerPartition">The number of characters to split up per item (partition) in the resulting list.</param>
         /// <returns>A <see cref="List{T}"/> containing the split up partitions.</returns>
         public static List<string> Partition(this string input, int charsPerPartition)
         {
