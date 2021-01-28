@@ -21,4 +21,10 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\Users\hanne\source\repos\BarbezDotEu.String\BarbezDotEu.String\BarbezDotEu.String\BarbezDotEu.String.xml</DocumentationFile>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Vsxmd" Version="1.4.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
 </Project>
