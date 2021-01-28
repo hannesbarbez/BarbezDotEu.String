@@ -1,2 +1,2 @@
 # BarbezDotEu.String
-Common logic for anything string-related
+Generic logic for operations pertaining to text and strings (mostly - needs some cleaning).
