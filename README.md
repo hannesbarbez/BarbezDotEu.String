@@ -601,3 +601,6 @@ The string as retrieved from the byte array.
 | TextData | [System.Byte[]](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Byte[] 'System.Byte[]') | The binary text data to detect encoding for. |
 | DefaultEncoding | [System.Text.Encoding](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Text.Encoding 'System.Text.Encoding') | The encoding using which to interpret the byte array. |
 | MaxHeuristicSampleSize | [System.Int64](http://msdn.microsoft.com/query/dev14.query?appId=Dev14IDEF1&l=EN-US&k=k:System.Int64 'System.Int64') | The maximum sample size. |
+
+## Author
+www.barbez.eu
