@@ -393,7 +393,7 @@ namespace BarbezDotEu.String
         public static string GetAsDatabaseTableName(this Type type)
         {
             var entity = type.Name.ReplaceEnding("y", "ie");
-            return entity;
+            return $"{entity}s";
         }
     }
 }
