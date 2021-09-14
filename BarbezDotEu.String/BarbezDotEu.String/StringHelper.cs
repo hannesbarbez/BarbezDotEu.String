@@ -384,5 +384,19 @@ namespace BarbezDotEu.String
             while (enumerator.MoveNext())
                 yield return (string)enumerator.GetTextElement();
         }
+
+        /// <summary>
+        /// Based on a given class that is a DTO or entity representing an equivalent table in a database, return what would be the table's name.
+        /// </summary>
+        /// <typeparam name="T">The DTO or entity representing a database table.</typeparam>
+        /// <param name="class"></param>
+        /// <returns>The name of the equivalent table in database for the given DTO.</returns>
+        public static string GetAsDatabaseTableName<T>(this T @class)
+            where T : class
+        {
+            var type = typeof(T);
+            var entity = type.Name.ReplaceEnding("y", "ie");
+            return entity;
+        }
     }
 }
