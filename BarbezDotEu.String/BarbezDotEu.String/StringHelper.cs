@@ -412,7 +412,7 @@ namespace BarbezDotEu.String
         /// </summary>
         /// <param name="model">The camel-cased string value to add spaces to.</param>
         /// <returns>A string representation containing spaces for the given enumeration value.</returns>
-        private static string AddSpaces(string camelCaseStringToConvert)
+        public static string AddSpaces(string camelCaseStringToConvert)
         {
             return Regex.Replace(camelCaseStringToConvert, "([a-z](?=[A-Z]|[0-9])|[A-Z](?=[A-Z][a-z]|[0-9])|[0-9](?=[^0-9]))", "$1 ");
         }
