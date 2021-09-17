@@ -395,5 +395,72 @@ namespace BarbezDotEu.String
             var entity = type.Name.ReplaceEnding("y", "ie");
             return $"{entity}s";
         }
+
+        /// <summary>
+        /// Adds spaces to camel-cased enumeration string values.
+        /// </summary>
+        /// <param name="model">The camel-cased enumeration string value to add spaces to.</param>
+        /// <returns>A string representation containing spaces for the given enumeration value.</returns>
+        public static string AddSpaces(this Enum model)
+        {
+            var camelCaseStringToConvert = model.ToString();
+            return AddSpaces(camelCaseStringToConvert);
+        }
+
+        /// <summary>
+        /// Adds spaces to a camel-cased string.
+        /// </summary>
+        /// <param name="model">The camel-cased string value to add spaces to.</param>
+        /// <returns>A string representation containing spaces for the given enumeration value.</returns>
+        private static string AddSpaces(string camelCaseStringToConvert)
+        {
+            return Regex.Replace(camelCaseStringToConvert, "([a-z](?=[A-Z]|[0-9])|[A-Z](?=[A-Z][a-z]|[0-9])|[0-9](?=[^0-9]))", "$1 ");
+        }
+
+        /// <summary>
+        /// Gets the enumeration for a given string value representing the enumeration.
+        /// </summary>
+        /// <typeparam name="T">The type of the enumeration.</typeparam>
+        /// <param name="model">The string value to translate into the enumeration.</param>
+        /// <returns>An enumeration representation of the given string.</returns>
+        /// <remarks>Based on https://stackoverflow.com/a/52588251</remarks>
+        public static T ConvertToEnum<T>(this string model)
+        {
+            var newModel = model.MakeEnumCompatible();
+
+            if (!Enum.IsDefined(typeof(T), newModel))
+            {
+                // For enums, default returns 0 - all enums therefor should ideally have a 0 defined.
+                return default;
+            }
+
+            return (T)Enum.Parse(typeof(T), newModel, true);
+        }
+
+        /// <summary>
+        /// Moulds a given string into a string that is a form parsable into any enumeration.
+        /// </summary>
+        /// <param name="model">The string to parse.</param>
+        /// <returns>A string compatible with enumeration parsing from string.</returns>
+        /// <remarks>Based on https://stackoverflow.com/a/52588251</remarks>
+        public static string MakeEnumCompatible(this string model)
+        {
+            List<string> invalidCharacters = new();
+            invalidCharacters.ForEach(x => model = model.Replace(x, string.Empty));
+            var charsToRemove = Regexes.NonAlphaNumericals
+                .Matches(model)
+                .Cast<Match>()
+                .Select(m => m.Value)
+                .ToList();
+
+            if (!charsToRemove.Any())
+            {
+                return model;
+            }
+
+            invalidCharacters.AddRange(charsToRemove);
+            invalidCharacters.ForEach(x => model = model.Replace(x, string.Empty));
+            return model;
+        }
     }
 }

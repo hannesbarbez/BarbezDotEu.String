@@ -17,6 +17,11 @@ namespace BarbezDotEu.String
         /// <remarks>
         /// Adapted from regex sourced from https://mathiasbynens.be/demo/url-regex, replaced TLDs with those from https://github.com/publicsuffix/list. Alternative: https://github.com/flipbit/tld.
         /// </remarks>
-        public static readonly Regex Urls = new Regex(@"(((http|ftp|https):\/{2})+(([0-9a-z_-]+\.)+(" + StringConstants.TLDs + @")(:[0-9]+)?((\/([~0-9a-zA-Z\#\+\%@\.\/_-]+))?(\?[0-9a-zA-Z\+\%@\/&\[\];=_-]+)?)?))", RegexOptions.Compiled);
+        public static readonly Regex Urls = new(@"(((http|ftp|https):\/{2})+(([0-9a-z_-]+\.)+(" + StringConstants.TLDs + @")(:[0-9]+)?((\/([~0-9a-zA-Z\#\+\%@\.\/_-]+))?(\?[0-9a-zA-Z\+\%@\/&\[\];=_-]+)?)?))", RegexOptions.Compiled);
+
+        /// <summary>
+        /// Defines a regex to get all non-alpha numericalls from a text.
+        /// </summary>
+        public static readonly Regex NonAlphaNumericals = new("[^a-zA-Z0-9]", RegexOptions.Compiled);
     }
 }
