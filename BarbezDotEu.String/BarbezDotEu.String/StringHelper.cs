@@ -404,7 +404,7 @@ namespace BarbezDotEu.String
         public static string AddSpaces(this Enum model)
         {
             var camelCaseStringToConvert = model.ToString();
-            return AddSpaces(camelCaseStringToConvert);
+            return camelCaseStringToConvert.AddSpaces();
         }
 
         /// <summary>
@@ -412,7 +412,7 @@ namespace BarbezDotEu.String
         /// </summary>
         /// <param name="model">The camel-cased string value to add spaces to.</param>
         /// <returns>A string representation containing spaces for the given enumeration value.</returns>
-        public static string AddSpaces(string camelCaseStringToConvert)
+        public static string AddSpaces(this string camelCaseStringToConvert)
         {
             return Regex.Replace(camelCaseStringToConvert, "([a-z](?=[A-Z]|[0-9])|[A-Z](?=[A-Z][a-z]|[0-9])|[0-9](?=[^0-9]))", "$1 ");
         }
