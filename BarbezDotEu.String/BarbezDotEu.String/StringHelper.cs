@@ -382,7 +382,7 @@ namespace BarbezDotEu.String
         {
             var enumerator = StringInfo.GetTextElementEnumerator(unicodeUtf16String.Normalize());
             while (enumerator.MoveNext())
-                yield return (string)enumerator.GetTextElement();
+                yield return enumerator.GetTextElement();
         }
 
         /// <summary>
@@ -410,7 +410,7 @@ namespace BarbezDotEu.String
         /// <summary>
         /// Adds spaces to a camel-cased string.
         /// </summary>
-        /// <param name="model">The camel-cased string value to add spaces to.</param>
+        /// <param name="camelCaseStringToConvert">The camel-cased string value to add spaces to.</param>
         /// <returns>A string representation containing spaces for the given enumeration value.</returns>
         public static string AddSpaces(this string camelCaseStringToConvert)
         {

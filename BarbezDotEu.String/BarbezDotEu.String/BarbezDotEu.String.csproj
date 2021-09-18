@@ -7,7 +7,7 @@
     <Product>BarbezDotEu.String</Product>
     <PackageId>BarbezDotEu.String</PackageId>
     <Copyright>©2021 Hannes Barbez</Copyright>
-    <Version>1.2.2</Version>
+    <Version>1.2.3</Version>
     <Description>Misc. generic logic for operations pertaining to text and strings.</Description>
     <PackageTags>string</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -19,6 +19,7 @@
     <RepositoryUrl>https://github.com/hannesbarbez/BarbezDotEu.String</RepositoryUrl>
     <PackageIconUrl>https://i2.wp.com/barbez.eu/wp-content/uploads/2020/02/cropped-BarbezDotEu-logo-1.png?resize=64%2C64</PackageIconUrl>
     <DebugSymbols>true</DebugSymbols>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <DocumentationFile>C:\Users\hanne\source\repos\BarbezDotEu.String\BarbezDotEu.String\BarbezDotEu.String\BarbezDotEu.String.xml</DocumentationFile>
