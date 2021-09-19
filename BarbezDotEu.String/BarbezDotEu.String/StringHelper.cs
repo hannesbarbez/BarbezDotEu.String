@@ -462,5 +462,16 @@ namespace BarbezDotEu.String
             invalidCharacters.ForEach(x => model = model.Replace(x, string.Empty));
             return model;
         }
+
+        /// <summary>
+        /// Converts a string to its escaped representation after all spaces have been replaced with dashes.
+        /// The result is converted to lowercase, after which it is returned.
+        /// </summary>
+        /// <param name="nonUrlFriendlyString">The URL to convert.</param>
+        /// <returns>The converted URL.</returns>
+        public static string AsUrlFriendly(this string nonUrlFriendlyString)
+        {
+            return Uri.EscapeDataString(nonUrlFriendlyString.Replace(" ", "-")).ToLowerInvariant();
+        }
     }
 }
