@@ -20,6 +20,9 @@ namespace BarbezDotEu.String
     /// </summary>
     public static class StringHelper
     {
+        private static readonly string[] DASHABLES = new string[] { " " };
+        private static readonly string[] REMOVABLES = new string[] { ",", "(", ")" };
+
         /// <summary>
         /// From a given bag containing good and bad URIs, returns only a list of valid URIs.
         /// </summary>
@@ -471,7 +474,13 @@ namespace BarbezDotEu.String
         /// <returns>The converted URL.</returns>
         public static string AsUrlFriendly(this string nonUrlFriendlyString)
         {
-            return Uri.EscapeDataString(nonUrlFriendlyString.Replace(" ", "-").Replace(",", string.Empty)).ToLowerInvariant();
+            foreach (var dashable in DASHABLES)
+                nonUrlFriendlyString = nonUrlFriendlyString.Replace(dashable, "-");
+
+            foreach (var removable in REMOVABLES)
+                nonUrlFriendlyString = nonUrlFriendlyString.Replace(removable, string.Empty);
+
+            return Uri.EscapeDataString(nonUrlFriendlyString.ToLowerInvariant());
         }
     }
 }
