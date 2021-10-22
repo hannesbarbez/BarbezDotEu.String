@@ -471,7 +471,7 @@ namespace BarbezDotEu.String
         /// <returns>The converted URL.</returns>
         public static string AsUrlFriendly(this string nonUrlFriendlyString)
         {
-            return Uri.EscapeDataString(nonUrlFriendlyString.Replace(" ", "-")).ToLowerInvariant();
+            return Uri.EscapeDataString(nonUrlFriendlyString.Replace(" ", "-")).Replace(",", string.Empty).ToLowerInvariant();
         }
     }
 }
