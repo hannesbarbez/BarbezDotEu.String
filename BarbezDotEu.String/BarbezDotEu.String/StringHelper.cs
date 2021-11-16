@@ -395,7 +395,10 @@ namespace BarbezDotEu.String
         /// <returns>The name of the equivalent table in database for the given DTO.</returns>
         public static string GetAsDatabaseTableName(this Type type)
         {
-            var entity = type.Name.ReplaceEnding("y", "ie");
+            var entity = type.Name
+                .ReplaceEnding("y", "ie")
+                .ReplaceEnding("s", "se");
+
             return $"{entity}s";
         }
 
