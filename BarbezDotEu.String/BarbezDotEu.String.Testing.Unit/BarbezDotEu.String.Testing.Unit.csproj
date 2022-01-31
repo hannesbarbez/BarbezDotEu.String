@@ -1,15 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <Authors>Barbez.eu</Authors>
     <Company>Barbez.eu</Company>
     <Product>BarbezDotEu.String</Product>
-    <Copyright>©2020-21 Barbez.eu</Copyright>
-
-    <IsPackable>false</IsPackable>
+    <Copyright>©2022 Barbez.eu</Copyright>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
     <PackageReference Include="MSTest.TestAdapter" Version="2.2.8" />
@@ -19,9 +15,7 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\BarbezDotEu.String\BarbezDotEu.String.csproj" />
   </ItemGroup>
-
 </Project>
