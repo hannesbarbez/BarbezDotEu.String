@@ -263,10 +263,7 @@ namespace BarbezDotEu.String
         /// <returns>All words found inside of the given haystack (i.e. text), together with how many times each word was found inside the text.s</returns>
         public static IDictionary<string, long> FindAndCountAll(Regex needle, string haystack, bool ignoreCase)
         {
-            var nonUniqueWords = ignoreCase
-                ? needle.Matches(haystack.ToLowerInvariant()).Select(x => x.ToString())
-                : needle.Matches(haystack).Select(x => x.ToString());
-
+            var nonUniqueWords = GetNonUniqueWords(needle, haystack, ignoreCase);
             var uniqueWords = new HashSet<string>(nonUniqueWords);
             var result = new ConcurrentDictionary<string, long>();
             Parallel.ForEach(uniqueWords, uniqueWord =>
@@ -276,6 +273,31 @@ namespace BarbezDotEu.String
                                   select occurence;
 
                 result.TryAdd(uniqueWord, occurrences.LongCount());
+            });
+
+            return result;
+        }
+
+        /// <summary>
+        /// Finds one or more textual needles in a given Regex in a textual haystack,
+        /// with or without taking character casing into account. Nex to this, returns the word count per hit.
+        /// </summary>
+        /// <param name="needle">The (different) piece(s) of text to find.</param>
+        /// <param name="haystack">The text to find the needle in.</param>
+        /// <param name="ignoreCase">Set to true to turn case-sensitivity off.</param>
+        /// <returns>All words found inside of the given haystack (i.e. text), together with how many times each word was found inside the text.s</returns>
+        public static IDictionary<string, int> FindAndCountAllInt(Regex needle, string haystack, bool ignoreCase)
+        {
+            var nonUniqueWords = GetNonUniqueWords(needle, haystack, ignoreCase);
+            var uniqueWords = new HashSet<string>(nonUniqueWords);
+            var result = new ConcurrentDictionary<string, int>();
+            Parallel.ForEach(uniqueWords, uniqueWord =>
+            {
+                var occurrences = from occurence in nonUniqueWords
+                                  where occurence.Equals(uniqueWord, StringComparison.InvariantCultureIgnoreCase)
+                                  select occurence;
+
+                result.TryAdd(uniqueWord, occurrences.Count());
             });
 
             return result;
@@ -512,6 +534,13 @@ namespace BarbezDotEu.String
                 nonUrlFriendlyString = nonUrlFriendlyString.Replace(removable, string.Empty);
 
             return Uri.EscapeDataString(nonUrlFriendlyString.ToLowerInvariant());
+        }
+
+        private static IEnumerable<string> GetNonUniqueWords(Regex needle, string haystack, bool ignoreCase)
+        {
+            return ignoreCase
+                            ? needle.Matches(haystack.ToLowerInvariant()).Select(x => x.ToString())
+                            : needle.Matches(haystack).Select(x => x.ToString());
         }
     }
 }
