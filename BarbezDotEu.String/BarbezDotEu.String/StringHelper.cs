@@ -240,7 +240,7 @@ namespace BarbezDotEu.String
         /// <param name="needle">The (different) piece(s) of text to find.</param>
         /// <param name="haystack">The text to find the needle in.</param>
         /// <param name="ignoreCase">Set to true to turn case-sensitivity off.</param>
-        /// <returns></returns>
+        /// <returns>All words found inside of the given haystack (i.e. text).</returns>
         public static HashSet<string> FindAll(Regex needle, string haystack, bool ignoreCase)
         {
             if (ignoreCase)
@@ -251,6 +251,34 @@ namespace BarbezDotEu.String
             return new HashSet<string>(needle
                     .Matches(haystack)
                     .Select(x => x.ToString()));
+        }
+
+        /// <summary>
+        /// Finds one or more textual needles in a given Regex in a textual haystack,
+        /// with or without taking character casing into account. Nex to this, returns the word count per hit.
+        /// </summary>
+        /// <param name="needle">The (different) piece(s) of text to find.</param>
+        /// <param name="haystack">The text to find the needle in.</param>
+        /// <param name="ignoreCase">Set to true to turn case-sensitivity off.</param>
+        /// <returns>All words found inside of the given haystack (i.e. text), together with how many times each word was found inside the text.s</returns>
+        public static IDictionary<string, long> FindAndCountAll(Regex needle, string haystack, bool ignoreCase)
+        {
+            var nonUniqueWords = ignoreCase
+                ? needle.Matches(haystack.ToLowerInvariant()).Select(x => x.ToString())
+                : needle.Matches(haystack).Select(x => x.ToString());
+
+            var uniqueWords = new HashSet<string>(nonUniqueWords);
+            var result = new ConcurrentDictionary<string, long>();
+            Parallel.ForEach(uniqueWords, uniqueWord =>
+            {
+                var occurrences = from occurence in nonUniqueWords
+                                  where occurence.Equals(uniqueWord, StringComparison.InvariantCultureIgnoreCase)
+                                  select occurence;
+
+                result.TryAdd(uniqueWord, occurrences.LongCount());
+            });
+
+            return result;
         }
 
         /// <summary>
