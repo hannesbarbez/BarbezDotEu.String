@@ -87,7 +87,7 @@ namespace BarbezDotEu.String
             if (source.EndsWith(endingToRemove))
             {
                 var index = source.LastIndexOf(endingToRemove);
-                source = source.Substring(0, index);
+                source = source[..index];
             }
 
             return source;
@@ -121,7 +121,7 @@ namespace BarbezDotEu.String
             if (source.EndsWith(endingToReplace))
             {
                 var index = source.LastIndexOf(endingToReplace);
-                source = source.Substring(0, index);
+                source = source[..index];
                 source = $"{source}{endingToReplaceBy}";
             }
 
