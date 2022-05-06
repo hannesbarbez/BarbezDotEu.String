@@ -542,5 +542,24 @@ namespace BarbezDotEu.String
                             ? needle.Matches(haystack.ToLowerInvariant()).Select(x => x.ToString())
                             : needle.Matches(haystack).Select(x => x.ToString());
         }
+
+        /// <summary>
+        /// Removes empty lines from a text, and trims all other (non-empty) lines.
+        /// </summary>
+        /// <param name="text">The text to trim and clear of empty lines.</param>
+        /// <returns>The text, trimmed and cleared of empty lines.</returns>
+        public static IEnumerable<string> GetTrimmedNonEmptyLines(this string text)
+        {
+            var bag = new List<string>();
+            var lines = text.Split(Environment.NewLine, StringSplitOptions.TrimEntries);
+            if (!lines.Any())
+                return null;
+
+            foreach (var line in lines)
+                if (!string.IsNullOrWhiteSpace(line))
+                    bag.Add(line);
+
+            return bag;
+        }
     }
 }
