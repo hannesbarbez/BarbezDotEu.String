@@ -5,8 +5,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
-using System.IO.Compression;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -20,8 +18,10 @@ namespace BarbezDotEu.String
     /// </summary>
     public static class StringHelper
     {
-        private static readonly string[] DASHABLES = new string[] { " " };
-        private static readonly string[] REMOVABLES = new string[] { ",", "(", ")" };
+        private const string Whitespace = "$1 ";
+        private static readonly string[] DASHABLES = [" "];
+        private static readonly string[] REMOVABLES = [",", "(", ")"];
+        private static readonly string[] separator = [","];
 
         /// <summary>
         /// From a given bag containing good and bad URIs, returns only a list of valid URIs.
@@ -45,8 +45,8 @@ namespace BarbezDotEu.String
                 }
             }
 
-            var uriLookalikesText = string.Join(StringConstants.Space, uriLookalikes.ToArray());
-            var validUrls = Regexes.Urls.Matches(uriLookalikesText).Select(x => x.Value);
+            var uriLookalikesText = string.Join(StringConstants.Space, [.. uriLookalikes]);
+            var validUrls = Regexes.Urls().Matches(uriLookalikesText).Select(x => x.Value);
             return validUrls.ToHashSet();
         }
 
@@ -142,47 +142,11 @@ namespace BarbezDotEu.String
 
             if (!string.IsNullOrWhiteSpace(csvString))
             {
-                var split = csvString.Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+                var split = csvString.Split(separator, StringSplitOptions.RemoveEmptyEntries);
                 results.UnionWith(split);
             }
 
             return results;
-        }
-
-        /// <summary>
-        /// Converts <see cref="HttpContent"/> to textual string content, even if GZipped.
-        /// </summary>
-        /// <param name="httpContent">The <see cref="HttpContent"/> to convert.</param>
-        /// <returns>A string representation of the given <see cref="HttpContent"/>.</returns>
-        public static async Task<string> GetAsTextAsync(this HttpContent httpContent)
-        {
-            var text = string.Empty;
-            if (httpContent.IsContentGZip())
-            {
-                using var outputStream = new MemoryStream();
-                var input = httpContent.ReadAsStreamAsync().Result;
-                using (var inputStream = new GZipStream(input, CompressionMode.Decompress))
-                {
-                    inputStream.CopyTo(outputStream); // Decompress input to output.
-                    outputStream.Flush(); // Make sure all bytes are written.
-                }
-                outputStream.Position = 0;
-
-                if (httpContent.IsContentUtf8())
-                {
-                    text = Encoding.UTF8.GetString(outputStream.ToArray());
-                }
-                else
-                {
-                    using StreamReader streamReader = new StreamReader(outputStream);
-                    text = streamReader.ReadToEnd();
-                }
-            }
-            else
-            {
-                text = await httpContent.ReadAsStringAsync();
-            }
-            return text;
         }
 
         /// <summary>
@@ -211,7 +175,7 @@ namespace BarbezDotEu.String
                 return new List<string>();
             }
 
-            ConcurrentBag<string> results = new ConcurrentBag<string>();
+            ConcurrentBag<string> results = [];
             Parallel.ForEach(uniques, x =>
             {
                 if (input.Count(y => string.Equals(x, y, StringComparison.InvariantCultureIgnoreCase)) > 1)
@@ -230,7 +194,7 @@ namespace BarbezDotEu.String
         /// <returns>The file name as found inside the given full file path.</returns>
         public static string GetFileName(this string fullFilePath)
         {
-            var result = Regex.Match(fullFilePath, @".*\\([^\\]+$)").Groups[1].Value;
+            var result = Regexes.DirectoryPath().Match(fullFilePath).Groups[1].Value;
             return result;
         }
 
@@ -356,20 +320,21 @@ namespace BarbezDotEu.String
         /// <returns>Null if fail; a text if all went well.</returns>
         public static string GetRawContentString(byte[] bytes)
         {
-            if (bytes.Any())
+            if (bytes.Length == 0)
             {
-                // Best-effort.
-                try
-                {
-                    var content = TextFileEncodingDetector.GetStringFromByteArray(bytes, Encoding.Default);
-                    return content;
-                }
-                catch
-                {
-                    return null;
-                }
+                return null;
             }
-            return null;
+
+            // Best-effort.
+            try
+            {
+                var content = TextFileEncodingDetector.GetStringFromByteArray(bytes, Encoding.Default);
+                return content;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -382,26 +347,6 @@ namespace BarbezDotEu.String
             return string.Equals(httpContent.Headers.ContentType.MediaType, StringConstants.TextCsv, StringComparison.InvariantCultureIgnoreCase);
         }
 
-        /// <summary>
-        /// Checks if <see cref="HttpContent"/> is UTF8 and if so, returns true.
-        /// </summary>
-        /// <param name="httpContent">The <see cref="HttpContent"/> to check.</param>
-        /// <returns>True if the content is UTF8.</returns>
-        public static bool IsContentUtf8(this HttpContent httpContent)
-        {
-            return string.Equals(httpContent.Headers.ContentType.CharSet, StringConstants.UTF8, StringComparison.InvariantCultureIgnoreCase);
-        }
-
-        /// <summary>
-        /// Checks if <see cref="HttpContent"/> is GZipped and if so, returns true.
-        /// </summary>
-        /// <param name="httpContent">The <see cref="HttpContent"/> to check.</param>
-        /// <returns>True if GZipped.</returns>
-        public static bool IsContentGZip(this HttpContent httpContent)
-        {
-            return httpContent.Headers.ContentEncoding.Any(x => string.Equals(x, StringConstants.AcceptEncodingGzip, StringComparison.InvariantCultureIgnoreCase))
-                || (httpContent.Headers.ContentType != null && string.Equals(httpContent.Headers.ContentType.MediaType, StringConstants.ApplicationGzip, StringComparison.InvariantCultureIgnoreCase));
-        }
         /// <summary>
         /// Splits a given string up into even blocks (except for the last item in the list when the input string was not long enough).
         /// </summary>
@@ -469,9 +414,7 @@ namespace BarbezDotEu.String
         /// <param name="camelCaseStringToConvert">The camel-cased string value to add spaces to.</param>
         /// <returns>A string representation containing spaces for the given enumeration value.</returns>
         public static string AddSpaces(this string camelCaseStringToConvert)
-        {
-            return Regex.Replace(camelCaseStringToConvert, "([a-z](?=[A-Z]|[0-9])|[A-Z](?=[A-Z][a-z]|[0-9])|[0-9](?=[^0-9]))", "$1 ");
-        }
+            => Regexes.SpotsWhereNumbersAndUpperCaseOccurBetweenLowerCases().Replace(camelCaseStringToConvert, Whitespace);
 
         /// <summary>
         /// Gets the enumeration for a given string value representing the enumeration.
@@ -501,15 +444,15 @@ namespace BarbezDotEu.String
         /// <remarks>Based on https://stackoverflow.com/a/52588251</remarks>
         public static string MakeEnumCompatible(this string model)
         {
-            List<string> invalidCharacters = new();
+            List<string> invalidCharacters = [];
             invalidCharacters.ForEach(x => model = model.Replace(x, string.Empty));
-            var charsToRemove = Regexes.NonAlphaNumericals
+            var charsToRemove = Regexes.NonAlphaNumericals()
                 .Matches(model)
                 .Cast<Match>()
                 .Select(m => m.Value)
                 .ToList();
 
-            if (!charsToRemove.Any())
+            if (charsToRemove.Count == 0)
             {
                 return model;
             }
@@ -552,8 +495,10 @@ namespace BarbezDotEu.String
         {
             var bag = new List<string>();
             var lines = text.Split(Environment.NewLine, StringSplitOptions.TrimEntries);
-            if (!lines.Any())
+            if (lines.Length == 0)
+            {
                 return null;
+            }
 
             foreach (var line in lines)
                 if (!string.IsNullOrWhiteSpace(line))

@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Authors>Hannes Barbez</Authors>
     <Company>Hannes Barbez</Company>
     <Title>BarbezDotEu.String</Title>
     <Product>BarbezDotEu.String</Product>
     <PackageId>BarbezDotEu.String</PackageId>
     <Copyright>©2023 Hannes Barbez</Copyright>
-    <Version>3.0.0</Version>
+    <Version>4.0.0</Version>
     <Description>Misc. generic logic for operations pertaining to text and strings.</Description>
     <PackageTags>string</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -17,11 +17,8 @@
     <RepositoryType>GIT</RepositoryType>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/hannesbarbez/BarbezDotEu.String</RepositoryUrl>
-    <PackageIconUrl>https://i2.wp.com/barbez.eu/wp-content/uploads/2020/02/cropped-BarbezDotEu-logo-1.png?resize=64%2C64</PackageIconUrl>
+    <PackageIconUrl>https://api.nuget.org/v3-flatcontainer/barbezdoteu.provider/7.0.0/icon</PackageIconUrl>
     <DebugSymbols>true</DebugSymbols>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>C:\Users\hanne\source\repos\BarbezDotEu.String\BarbezDotEu.String\BarbezDotEu.String\BarbezDotEu.String.xml</DocumentationFile>
   </PropertyGroup>
 </Project>

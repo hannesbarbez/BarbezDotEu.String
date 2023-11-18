@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
 
 namespace BarbezDotEu.String
 {
@@ -361,23 +360,8 @@ namespace BarbezDotEu.String
                 )
                 return Encoding.BigEndianUnicode;
 
-
-            //3: UTF-8 - Martin Dürst outlines a method for detecting whether something CAN be UTF-8 content 
-            //  using regexp, in his w3c.org unicode FAQ entry: 
-            //  http://www.w3.org/International/questions/qa-forms-utf-8
-            //  adapted here for C#.
             string potentiallyMangledString = Encoding.ASCII.GetString(SampleBytes);
-            Regex UTF8Validator = new Regex(@"\A("
-                + @"[\x09\x0A\x0D\x20-\x7E]"
-                + @"|[\xC2-\xDF][\x80-\xBF]"
-                + @"|\xE0[\xA0-\xBF][\x80-\xBF]"
-                + @"|[\xE1-\xEC\xEE\xEF][\x80-\xBF]{2}"
-                + @"|\xED[\x80-\x9F][\x80-\xBF]"
-                + @"|\xF0[\x90-\xBF][\x80-\xBF]{2}"
-                + @"|[\xF1-\xF3][\x80-\xBF]{3}"
-                + @"|\xF4[\x80-\x8F][\x80-\xBF]{2}"
-                + @")*\z");
-            if (UTF8Validator.IsMatch(potentiallyMangledString))
+            if (Regexes.CanBeUtf8().IsMatch(potentiallyMangledString))
             {
                 //Unfortunately, just the fact that it CAN be UTF-8 doesn't tell you much about probabilities.
                 //If all the characters are in the 0-127 range, no harm done, most western charsets are same as UTF-8 in these ranges.
