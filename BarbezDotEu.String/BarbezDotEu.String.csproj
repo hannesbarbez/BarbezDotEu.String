@@ -9,7 +9,7 @@
     <Copyright>©2024 Hannes Barbez</Copyright>
     <Version>5.0.0</Version>
     <Description>Misc. generic logic for operations pertaining to text and strings.</Description>
-    <PackageTags>string</PackageTags>
+      <PackageTags>regex;constants;text;barbez</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://barbez.eu/</PackageProjectUrl>
@@ -17,8 +17,13 @@
     <RepositoryType>GIT</RepositoryType>
     <PackageRequireLicenseAcceptance>True</PackageRequireLicenseAcceptance>
     <RepositoryUrl>https://github.com/hannesbarbez/BarbezDotEu.String</RepositoryUrl>
-    <PackageIconUrl>https://api.nuget.org/v3-flatcontainer/barbezdoteu.provider/7.0.0/icon</PackageIconUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>ICON.png</PackageIcon>
     <DebugSymbols>true</DebugSymbols>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
+    <ItemGroup>
+        <None Include="..\README.md" Pack="true" PackagePath="\" />
+        <None Include="..\ICON.png" Pack="true" PackagePath="\" />
+    </ItemGroup>
 </Project>
