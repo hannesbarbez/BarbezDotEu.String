@@ -1,13 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Authors>Hannes Barbez</Authors>
     <Company>Hannes Barbez</Company>
     <Title>BarbezDotEu.String</Title>
     <Product>BarbezDotEu.String</Product>
     <PackageId>BarbezDotEu.String</PackageId>
-    <Copyright>©2023 Hannes Barbez</Copyright>
-    <Version>4.0.0</Version>
+    <Copyright>©2024 Hannes Barbez</Copyright>
+    <Version>5.0.0</Version>
     <Description>Misc. generic logic for operations pertaining to text and strings.</Description>
     <PackageTags>string</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
