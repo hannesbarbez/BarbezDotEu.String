@@ -7,7 +7,7 @@
     <Product>BarbezDotEu.String</Product>
     <PackageId>BarbezDotEu.String</PackageId>
     <Copyright>©2025 Hannes Barbez</Copyright>
-    <Version>6.0.0</Version>
+    <Version>6.0.1</Version>
     <Description>Misc. generic logic for operations pertaining to text and strings.</Description>
       <PackageTags>regex;constants;text;barbez</PackageTags>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -22,6 +22,14 @@
     <DebugSymbols>true</DebugSymbols>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
+
+    <!-- only applies when Configuration == Release: -->
+    <PropertyGroup Condition="'$(Configuration)'=='Release'">
+        <!-- Turn off generation of a .pdb and strip debug info entirely -->
+        <DebugType>none</DebugType>
+        <DebugSymbols>false</DebugSymbols>
+        <Optimize>true</Optimize>
+    </PropertyGroup>
     <ItemGroup>
         <None Include="..\README.md" Pack="true" PackagePath="\" />
         <None Include="..\ICON.png" Pack="true" PackagePath="\" />
